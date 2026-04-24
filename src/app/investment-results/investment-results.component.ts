@@ -1,5 +1,6 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, Input, input } from '@angular/core';
+import { Component, computed, inject, Input, input } from '@angular/core';
+import { InvestmentService } from '../investment.service';
 
 @Component({
   selector: 'app-investment-results',
@@ -19,13 +20,32 @@ export class InvestmentResultsComponent {
   //       totalAmountInvested: number
   //     }>();
 
-  @Input() results?: {
-    year: number,
-    interest: number,
-    valueEndOfYear: number,
-    annualInvestment: number,
-    totalInterest: number,
-    totalAmountInvested: number
-  } [];
+  // @Input() results?: {
+  //   year: number,
+  //   interest: number,
+  //   valueEndOfYear: number,
+  //   annualInvestment: number,
+  //   totalInterest: number,
+  //   totalAmountInvested: number
+  // } [];
+
+  // results = input<{
+  //   year: number,
+  //   interest: number,
+  //   valueEndOfYear: number,
+  //   annualInvestment: number,
+  //   totalInterest: number,
+  //   totalAmountInvested: number
+  // } []>()
+
+  private investmentService = inject(InvestmentService);
+
+  results = computed(() => this.investmentService.resultsData());
+
+  // results = this.investmentService.resultsData.asReadonly();
+
+  // get results() {
+  //   return this.investmentService.resultsData;
+  // }
 
 }
